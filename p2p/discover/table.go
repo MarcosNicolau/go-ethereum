@@ -443,7 +443,10 @@ func (tab *Table) doRefresh(done chan struct{}) {
 }
 
 func (tab *Table) loadSeedNodes() {
-	seeds := tab.db.QuerySeeds(seedCount, seedMaxAge)
+	// seeds := tab.db.QuerySeeds(seedCount, seedMaxAge)
+
+	// only load nursery nodes (those provided via cli)
+	var seeds []*enode.Node
 	seeds = append(seeds, tab.nursery...)
 	for i := range seeds {
 		seed := seeds[i]
